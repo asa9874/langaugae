@@ -9,14 +9,6 @@ public class Student extends Member {
         this.major = major;
     }
 
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
     // 8. 오버라이드, 16. 동적바인딩
     @Override
     public void printInfo() {

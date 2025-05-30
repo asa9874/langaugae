@@ -20,10 +20,6 @@ public class Member {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void printInfo() {
         System.out.printf("%-8d번 | %-20s", id, name);
     }

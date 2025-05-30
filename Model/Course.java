@@ -46,23 +46,11 @@ public class Course {
         return id;
     }
 
-    // 13. 설정자
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
+    // 13. 설정자
     public void setDescription(String description) {
         this.description = description;
     }
@@ -73,22 +61,6 @@ public class Course {
 
     public Professor getProfessor() {
         return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public Integer getMaxStudents() {
-        return maxStudents;
-    }
-
-    public void setMaxStudents(Integer maxStudents) {
-        if (maxStudents != null && maxStudents > 0) {
-            this.maxStudents = maxStudents;
-        } else {
-            this.maxStudents = 30;
-        }
     }
 
     public void addStudent(Student student) {

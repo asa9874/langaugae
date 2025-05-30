@@ -8,14 +8,6 @@ public class Professor extends Member {
         this.department = department;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
     @Override
     public void printInfo() {
         System.out.printf("%d번 | %s | %s", getId(), getName(), department);

@@ -67,6 +67,8 @@ public class Simulater {
         nowMember.printInfo();
     }
 
+    
+
     //시뮬레이터 실행
     public void simulate() {
         while (true) {
