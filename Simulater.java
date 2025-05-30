@@ -63,10 +63,11 @@ public class Simulater {
             }
         }
         System.out.println("" + nowMember.getName() + "님, 환영합니다!");
-        //14. 다형성
+        // 14. 다형성
         nowMember.printInfo();
     }
 
+    //시뮬레이터 실행
     public void simulate() {
         while (true) {
             if (nowMember == null) {
@@ -111,7 +112,8 @@ public class Simulater {
                 System.out.println("\n====== [교수자 메뉴] ======");
                 System.out.println("1. 과목 생성");
                 System.out.println("2. 과목 삭제");
-                System.out.println("3. 로그아웃");
+                System.out.println("3. 과목 조회");
+                System.out.println("4. 로그아웃");
                 System.out.print("메뉴 번호를 선택하세요: ");
 
                 Long inputNumber = sc.nextLong();
@@ -144,7 +146,7 @@ public class Simulater {
                             break;
                         }
 
-                        createCourse(courseName, (Professor) nowMember, maxStudents, courseDescription);
+                        createCourse(courseId, courseName, (Professor) nowMember, maxStudents, courseDescription);
                         System.out.println(" 과목이 생성되었습니다.");
                         break;
 
@@ -154,10 +156,13 @@ public class Simulater {
                         System.out.print("삭제할 과목 ID를 입력하세요: ");
                         Long deleteCourseId = sc.nextLong();
                         deleteCourse(deleteCourseId);
-                        System.out.println(" 과목이 삭제되었습니다.");
                         break;
 
                     case 3:
+                        printProfessorCourses((Professor) nowMember);
+                        break;
+
+                    case 4:
                         nowMember = null;
                         System.out.println("로그아웃 되었습니다.");
                         break;
@@ -169,6 +174,8 @@ public class Simulater {
         }
     }
 
+    
+    //과목출력용메서드
     public void printCourses(List<Course> courses) {
         System.out.println(
                 "-----------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -185,6 +192,7 @@ public class Simulater {
                 "-----------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 
+    //수강신청
     public void enrollCourse(Long courseId) {
         for (Course course : courses) {
             if (course.getId().equals(courseId)) {
@@ -200,12 +208,12 @@ public class Simulater {
         System.out.println("해당 ID의 과목을 찾을 수 없습니다.");
     }
 
+    //수강취소
     public void dropCourse(Long courseId) {
         for (Course course : courses) {
             if (course.getId().equals(courseId)) {
                 if (nowMember instanceof Student) {
                     course.removeStudent((Student) nowMember);
-                    System.out.println(course.getName() + "수강 취소가 완료되었습니다.");
                     return;
                 } else {
                     System.out.println("교수는 수강 취소를 할 수 없습니다.");
@@ -216,6 +224,7 @@ public class Simulater {
         System.out.println("해당 ID의 과목을 찾을 수 없습니다.");
     }
 
+    //학생의 수강 과목 조회
     public void printEnrolledCourses() {
         if (nowMember instanceof Student) {
             Student student = (Student) nowMember;
@@ -229,6 +238,7 @@ public class Simulater {
         }
     }
 
+    //교수의 과목 조회
     public void printProfessorCourses(Professor professor) {
         System.out.println(professor.getName() + "의 과목:");
         List<Course> professorCourses = courses.stream()
@@ -237,18 +247,30 @@ public class Simulater {
         printCourses(professorCourses);
     }
 
+    //교수의 과목 삭제
     public void deleteCourse(Long courseId) {
+        Course courseToDelete = courses.stream()
+                .filter(course -> course.getId().equals(courseId))
+                .findFirst()
+                .orElse(null);
+        if (courseToDelete == null) {
+            System.out.println("해당 ID의 과목을 찾을 수 없습니다.");
+            return;
+        }
+        if (courseToDelete.getProfessor() != nowMember) {
+            System.out.println("해당 과목은 현재 교수님이 담당하지 않는 과목입니다.");
+            return;
+        }
         courses.removeIf(course -> course.getId().equals(courseId));
-        System.out.println("과목이 삭제되었습니다.");
     }
 
-    public void createCourse(String name, Professor professor, int maxStudents, String description) {
-        Long newId = (long) (courses.size() + 1);
+    //교수의 과목 생성
+    public void createCourse(Long id, String name, Professor professor, int maxStudents, String description) {
         Course newCourse;
         if (description == null || description.isEmpty()) {
-            newCourse = new Course(newId, name, professor, maxStudents);
+            newCourse = new Course(id, name, professor, maxStudents);
         } else {
-            newCourse = new Course(newId, name, professor, maxStudents, description);
+            newCourse = new Course(id, name, professor, maxStudents, description);
         }
         courses.add(newCourse);
         System.out.println("과목이 생성되었습니다: " + newCourse.getName());

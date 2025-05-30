@@ -3,9 +3,9 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-//1. 클래스
+// 1. 클래스
 public class Course {
-    //9.캡슐화, 13 접근한정자, 11. 정보은닉
+    // 9.캡슐화, 13 접근한정자, 11. 정보은닉
     private Long id;
     private String name;
     private String description;
@@ -13,7 +13,7 @@ public class Course {
     private Professor professor;
     private Integer maxStudents;
 
-    //10. 생성자
+    // 10. 생성자
     public Course(Long id, String name, Professor professor, Integer maxStudents, String description) {
         this.id = id;
         this.name = name;
@@ -26,7 +26,7 @@ public class Course {
         this.professor = professor;
     }
 
-    //8. 오버로딩. 16. 정적바인딩
+    // 8. 오버로딩. 16. 정적바인딩
     public Course(Long id, String name, Professor professor, Integer maxStudents) {
         this(id, name, professor, maxStudents, name + "입니다");
     }
@@ -35,18 +35,18 @@ public class Course {
         System.out.printf("%-8s | %-20s | %-30s | %-10s | %-15d | %-20d",
                 id,
                 name,
-                description.length() > 28 ? description.substring(0, 27) + "…" : description, 
+                description.length() > 28 ? description.substring(0, 27) + "…" : description,
                 (professor != null ? professor.getName() : "없음"),
                 maxStudents,
                 enrolledStudents.size());
     }
 
-    //12. 접근자
+    // 12. 접근자
     public Long getId() {
         return id;
     }
 
-    //13. 설정자
+    // 13. 설정자
     public void setId(Long id) {
         this.id = id;
     }
@@ -87,7 +87,7 @@ public class Course {
         if (maxStudents != null && maxStudents > 0) {
             this.maxStudents = maxStudents;
         } else {
-            this.maxStudents = 30; 
+            this.maxStudents = 30;
         }
     }
 
@@ -103,6 +103,7 @@ public class Course {
     public void removeStudent(Student student) {
         if (enrolledStudents.contains(student)) {
             enrolledStudents.remove(student);
+            System.out.println(getName() + " 수강 취소가 완료되었습니다.");
             return;
         } else {
             System.out.println("등록된 학생이 아닙니다.");
