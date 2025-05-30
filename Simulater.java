@@ -33,7 +33,7 @@ public class Simulater {
         courses.add(new Course(3L, "회로이론", professors.get(1), 30, "회로이론을배워요~"));
         courses.add(new Course(4L, "기계설계", professors.get(1), 30, "기계설계를배워요~"));
         courses.add(new Course(5L, "운영체제", professors.get(0), 30, "운영체제를배워요~"));
-        courses.add(new Course(6L, "데이터베이스", professors.get(0), 30, "데이터베이스를배워요~"));
+        courses.add(new Course(6L, "졸업설계", professors.get(0), 30, "졸업설계를배워요~"));
 
         courses.get(0).getEnrolledStudents().add(students.get(0));
         courses.get(0).getEnrolledStudents().add(students.get(1));
